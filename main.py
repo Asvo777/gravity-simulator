@@ -19,7 +19,7 @@ class Planet:
     def __init__(self, color, x, y, mass = 10, vel_x = 0, vel_y = 0):
         self.color = color
         self.mass = mass
-        self.radius = mass / 10
+        self.radius = math.sqrt(mass / 3.1831 * math.pi)
         # Position
         self.pos_x = x
         self.pos_y = y
@@ -88,7 +88,8 @@ class Planet:
         collision_in_y = self.pos_y + self.radius >= other.pos_y and self.pos_y - self.radius <= other.pos_y
         if collision_in_x and collision_in_y:
             # Calculate velocity of the new formed planet
-            # self.form_planet_from_impact(other)
+            self.form_planet_from_impact(other)
+            print("Collision")
             # Destroy planets in collision
             if self in planets:
                 planets.remove(self)
@@ -104,18 +105,10 @@ class Planet:
         new_planet_x = (parent1.pos_x + parent2.pos_x) / 2
         new_planet_y = (parent1.pos_y + parent2.pos_y) / 2
 
-        # Magnitude of the parents's velocity
-        parent1_vel = math.sqrt(parent1.vel_x**2 + parent1.vel_y**2)
-        parent2_vel = math.sqrt(parent2.vel_x**2 + parent2.vel_y**2)
-
-        # Angle of the parents's velocity
-        parent1_angle = math.atan(parent1.vel_x / parent1.vel_y)
-        parent2_angle = math.atan(parent2.vel_x / parent2.vel_y)
-
         # Momentum for x-axis
         p1_x = parent1.mass * parent1.vel_x
         p2_x = parent2.mass * parent2.vel_x
-        
+
         # Momentum for y-axis
         p1_y = parent1.mass * parent1.vel_y
         p2_y = parent2.mass * parent2.vel_y
@@ -123,18 +116,36 @@ class Planet:
         # Calculate new planet mass
         new_planet_mass = parent1.mass + parent2.mass
 
+        color = "yellow"
+        if abs(parent1.mass - parent2.mass) == 10:
+            color = "red"
+            print(f"I am {self.mass} and {parent2.mass}")
+            print(f"{parent1.mass} + {parent2.mass} = {new_planet_mass}kg")
+
         # Calculate new planet velocity for x-axis
-        new_planet_vel_x = p1_x + p2_x / new_planet_mass
+        new_planet_vel_x = (p1_x + p2_x) / new_planet_mass
 
         # Calculate new planet velocity for y-axis
-        new_planet_vel_y = p1_y + p2_y / new_planet_mass
+        new_planet_vel_y = (p1_y + p2_y) / new_planet_mass
 
         # Create the new planet
-        new_planet = Planet("yellow", new_planet_x, new_planet_y, new_planet_mass, new_planet_vel_x, new_planet_vel_y)
+        new_planet = Planet(color, new_planet_x, new_planet_y, new_planet_mass, new_planet_vel_x, new_planet_vel_y)
         planets.append(new_planet)
 
 
-
+# def detect_collision(self, other):
+#         # Collison is detected only when the center of the planett is touched
+#         collision_in_x = self.pos_x + self.radius >= other.pos_x and self.pos_x - self.radius <= other.pos_x
+#         collision_in_y = self.pos_y + self.radius >= other.pos_y and self.pos_y - self.radius <= other.pos_y
+#         if collision_in_x and collision_in_y:
+#             # Calculate velocity of the new formed planet
+#             self.form_planet_from_impact(other)
+#             print("Collision")
+#             # Destroy planets in collision
+#             if self in planets:
+#                 planets.remove(self)
+#             if other in planets:
+#                 planets.remove(other)
 
 
 # Buttons !(need to be updated)!
