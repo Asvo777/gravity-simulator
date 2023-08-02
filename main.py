@@ -19,7 +19,7 @@ class Planet:
     def __init__(self, color, x, y, mass = 10, vel_x = 0, vel_y = 0):
         self.color = color
         self.mass = mass
-        self.radius = math.sqrt(mass / 3.1831 * math.pi)
+        self.radius = (mass * 3 / 4 * math.pi)**(1/3)
         # Position
         self.pos_x = x
         self.pos_y = y
