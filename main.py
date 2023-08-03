@@ -32,7 +32,6 @@ class Planet:
 
     def draw_planet(self):
         pygame.draw.circle(screen, self.color, (self.pos_x, self.pos_y), self.radius)
-        print(planets.index(self))
 
     def calculate_acceleration(self, other):
         # Distance between both planets
@@ -115,7 +114,7 @@ class Planet:
         new_planet_vel_y = (p1_y + p2_y) / new_planet_mass
 
         # Create the new planet
-        print(f"x: {new_planet_x}, y: {new_planet_y}, mass: {new_planet_mass}, vel x: {new_planet_vel_x}, vel y: {new_planet_vel_y}")
+        print(f"Collision | New Mass: {new_planet_mass}")
         return Planet("yellow", new_planet_x, new_planet_y, new_planet_mass, new_planet_vel_x, new_planet_vel_y)
 
 class Button:
@@ -224,15 +223,16 @@ while True:
         
         for first_planet in planets:
             for second_planet in planets:
-                if (Planet.detect_collision(first_planet, second_planet) and first_planet != second_planet):
-                    new_planet = Planet.form_planet_from_impact(first_planet, second_planet)
+                collision = Planet.detect_collision(first_planet, second_planet)
+                if (collision and first_planet != second_planet):
                     if first_planet in planets:
                         planets.remove(first_planet)
+
                     if second_planet in planets:
                         planets.remove(second_planet)
-
+                    
+                    new_planet = Planet.form_planet_from_impact(first_planet, second_planet)
                     planets.append(new_planet)
-                    print(f"Collision: {len(planets)}")
 
     screen.fill("black")
 
