@@ -11,7 +11,7 @@ It is possible to add a body anywhere on the screen with left-click. Once the st
 ![](https://github.com/Asvo777/gravity-simulator/blob/main/gravity-simulator-example.gif)
 <br>
 Display is made possible by the pygame module and Pyinstaller was used to compile the Python file into an executable file ( .exe ).
-Futur additions will allow the formation of larger bodies after a collision, and the presence of sound effects.
+Futur additions will include some sound effects.
 
 ## Technologies
 <b>Build with: </b>
